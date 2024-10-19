@@ -1,3 +1,20 @@
 body {
     margin: 0;
 }
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: .5fr 3fr;
+}
+
+.sidebar {
+    background-color: #5b21b6;
+    grid-column: 2/ 3;
+    grid-row: 1 / 4;
+}
+
+.form-container {
+    display: grid;
+}
