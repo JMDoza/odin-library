@@ -1,5 +1,4 @@
-const myLibrary = [];
-const tempData = [
+const myLibrary = [
   { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
   { title: "Ulysses", author: "James Joyce" },
   { title: "In Search of Lost Time", author: "Marcel Proust" },
@@ -20,10 +19,28 @@ function addBookToLibrary(title, author) {
   myLibrary.push(book);
 }
 
-function populateLibrary() {
-  tempData.forEach((book) => {
-    addBookToLibrary(book.title, book.author)
-  })
+function createBookCard(title, author) {
+  const newDiv = document.createElement("div");
+  const newH3 = document.createElement("h3");
+  const newP = document.createElement("p");
+
+  newDiv.className = "book-card";
+  newH3.textContent = title;
+  newP.textContent = author;
+
+  newDiv.appendChild(newH3);
+  newDiv.appendChild(newP);
+
+  return newDiv;
 }
 
-populateLibrary()
+function populateLibrary() {
+  const libraryContainer = document.querySelector(".library-container");
+
+  myLibrary.forEach(({ title, author }) => {
+    const bookCard = createBookCard(title, author);
+    libraryContainer.appendChild(bookCard);
+  });
+}
+
+populateLibrary();

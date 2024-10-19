@@ -18,3 +18,14 @@ body {
 .form-container {
     display: grid;
 }
+
+.library-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.book-card {
+    background-color: #ddd6fe;
+    border-radius: 18px;
+}
