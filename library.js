@@ -1,4 +1,5 @@
-const myLibrary = [
+const myLibrary = [];
+const predefinedData = [
   {
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
@@ -65,6 +66,10 @@ function Book(title, author, genre, numOfPages, hasRead) {
   this.hasRead = hasRead;
 }
 
+Book.prototype.toggleReadStatus = function () {
+  this.hasRead = !this.hasRead;
+};
+
 function addBookToLibrary(title, author, genre, numOfPages, hasRead) {
   let userTitle = title;
   let userAuthor = author;
@@ -113,9 +118,9 @@ function addReadEventListener(element) {
   element.addEventListener("click", (event) => {
     const bookIndex = findBookIndex(event.currentTarget);
 
-    myLibrary[bookIndex].hasRead = !myLibrary[bookIndex].hasRead;
+    myLibrary[bookIndex].toggleReadStatus();
 
-    populateLibrary();
+    element.innerHTML = myLibrary[bookIndex].hasRead ? circleSVG : "";
   });
 }
 
@@ -179,6 +184,10 @@ function createBookCard(title, author, genre, numOfPages, hasRead) {
 
   return bookCardContainer;
 }
+
+predefinedData.forEach(({ title, author, genre, numOfPages, hasRead }) => {
+  addBookToLibrary(title, author, genre, numOfPages, hasRead);
+});
 
 function populateLibrary() {
   const libraryContainer = document.querySelector(".library-container");
