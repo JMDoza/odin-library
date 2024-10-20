@@ -22,16 +22,16 @@
           <h1>New Book</h1>
 
           <label for="bookTitle">Title:</label>
-          <input type="text" name="bookTitle" />
+          <input type="text" name="bookTitle" required />
 
           <label for="bookAuthor">Author:</label>
-          <input type="text" name="bookAuthor" />
+          <input type="text" name="bookAuthor" required />
 
           <label for="bookGenre">Genre:</label>
-          <input type="text" name="bookGenre" />
+          <input type="text" name="bookGenre" required />
 
           <label for="bookPages">Number of pages:</label>
-          <input type="text" name="bookPages" />
+          <input type="number" name="bookPages" required />
 
           <div class="checkbox-container">
             <label for="bookRead">Has been read:</label>
@@ -59,6 +59,7 @@
         </div>
       </div>
       <div class="library-container">
+        <!-- Book card Template -->
         <!-- <div class="book-card-container">
           <div class="book-card">
             <div class="book-card-edge">

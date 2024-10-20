@@ -36,62 +36,36 @@ const myForm = document.querySelector(".form-container");
 const readButton = document.querySelector(".book-card-edge");
 const trashButton = document.querySelector(".delete-icon");
 
-const circleSVG = `<svg
-                  class="circle-checked"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <title>check-circle</title>
-                  <path
-                    d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                  />
-                </svg>`;
+const circleSVG = `<svg class="circle-checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check-circle</title><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>`;
+const trashSVG = `<svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>delete</title><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/></svg>`;
 
-const trashSVG = `<svg
-                class="delete-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <title>delete</title>
-                <path
-                  d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
-                />
-              </svg>`;
-
-function Book(title, author, genre, numOfPages, hasRead) {
-  this.title = title;
-  this.author = author;
-  this.genre = genre;
-  this.numOfPages = numOfPages;
-  this.hasRead = hasRead;
+class Book {
+  constructor(title, author, genre, numOfPages, hasRead) {
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.numOfPages = numOfPages;
+    this.hasRead = hasRead;
+  }
 }
 
+// Testing using protoype to add a function to all book objects
 Book.prototype.toggleReadStatus = function () {
   this.hasRead = !this.hasRead;
 };
 
 function addBookToLibrary(title, author, genre, numOfPages, hasRead) {
-  let userTitle = title;
-  let userAuthor = author;
-  let userGenre = genre;
-  let userNumOfPages = numOfPages;
-  let userHasRead = hasRead;
-
-  const book = new Book(
-    userTitle,
-    userAuthor,
-    userGenre,
-    userNumOfPages,
-    userHasRead
-  );
-
+  const book = new Book(title, author, genre, numOfPages, hasRead);
   myLibrary.push(book);
 }
 
 function findBookIndex(element) {
+  // Locate Parent Element for Book Information
   const bookCard = element.closest(".book-card");
   const bookInfo = bookCard.querySelector(".book-card-info");
 
+  // Clean data to find book index properly
+  // This could have been avoided if the Labels were seperated from the info
   const title = bookInfo.querySelector(".title").textContent;
   const author = bookInfo
     .querySelector(".author")
@@ -105,10 +79,10 @@ function findBookIndex(element) {
 
   const bookIndex = myLibrary.findIndex(
     (book) =>
-      book.title == title &&
-      book.author == author &&
+      book.title === title &&
+      book.author === author &&
       book.numOfPages == pages &&
-      book.genre == genre
+      book.genre === genre
   );
 
   return bookIndex;
@@ -133,7 +107,7 @@ function addDeleteEventListener(element) {
   });
 }
 
-function createBookCard(title, author, genre, numOfPages, hasRead) {
+function createBookCard({ title, author, genre, numOfPages, hasRead }) {
   const bookCardContainer = document.createElement("div");
   bookCardContainer.className = "book-card-container";
 
@@ -185,19 +159,19 @@ function createBookCard(title, author, genre, numOfPages, hasRead) {
   return bookCardContainer;
 }
 
+// Add predefined data as a book object
 predefinedData.forEach(({ title, author, genre, numOfPages, hasRead }) => {
   addBookToLibrary(title, author, genre, numOfPages, hasRead);
 });
 
 function populateLibrary() {
   const libraryContainer = document.querySelector(".library-container");
-
   libraryContainer.innerHTML = "";
 
   const fragment = document.createDocumentFragment();
 
-  myLibrary.forEach(({ title, author, genre, numOfPages, hasRead }) => {
-    const bookCard = createBookCard(title, author, genre, numOfPages, hasRead);
+  myLibrary.forEach((book) => {
+    const bookCard = createBookCard(book);
     fragment.appendChild(bookCard);
   });
 
