@@ -1,20 +1,58 @@
 const myLibrary = [
-  { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
-  { title: "Ulysses", author: "James Joyce" },
-  { title: "In Search of Lost Time", author: "Marcel Proust" },
-  { title: "One Hundred Years of Solitude", author: "Gabriel García Márquez" },
+  {
+    title: "The Great Gatsby",
+    author: "F. Scott Fitzgerald",
+    genre: "Fiction",
+    numOfPages: 180,
+    hasRead: true,
+  },
+  {
+    title: "Ulysses",
+    author: "James Joyce",
+    genre: "Fiction",
+    numOfPages: 1000,
+    hasRead: true,
+  },
+  {
+    title: "In Search of Lost Time",
+    author: "Marcel Proust",
+    genre: "Fiction",
+    numOfPages: 4300,
+    hasRead: true,
+  },
+  {
+    title: "One Hundred Years of Solitude",
+    author: "Gabriel García Márquez",
+    genre: "Fiction",
+    numOfPages: 500,
+    hasRead: true,
+  },
 ];
 
-function Book(title, author) {
+const myForm = document.querySelector(".form-container");
+
+function Book(title, author, genre, numOfPages, hasRead) {
   this.title = title;
   this.author = author;
+  this.genre = genre;
+  this.numOfPages = numOfPages;
+  this.hasRead = hasRead;
 }
 
-function addBookToLibrary(title, author) {
-  let userTitle = title ? title : prompt("Enter book Title:");
-  let userAuthor = author ? author : prompt("Enter book Author");
+function addBookToLibrary(title, author, genre, numOfPages, hasRead) {
+  let userTitle = title;
+  let userAuthor = author;
+  let userGenre = genre;
+  let userNumOfPages = numOfPages;
+  let userHasRead = hasRead;
 
-  const book = new Book(userTitle, userAuthor);
+  const book = new Book(
+    userTitle,
+    userAuthor,
+    userGenre,
+    userNumOfPages,
+    userHasRead
+  );
 
   myLibrary.push(book);
 }
@@ -37,10 +75,27 @@ function createBookCard(title, author) {
 function populateLibrary() {
   const libraryContainer = document.querySelector(".library-container");
 
-  myLibrary.forEach(({ title, author }) => {
+  libraryContainer.innerHTML = "";
+
+  myLibrary.forEach(({ title, author, genre, numOfPages, hasRead }) => {
     const bookCard = createBookCard(title, author);
     libraryContainer.appendChild(bookCard);
   });
 }
+
+myForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(myForm);
+
+  const title = formData.get("bookTitle");
+  const author = formData.get("bookAuthor");
+  const genre = formData.get("bookGenre");
+  const numOfPages = formData.get("bookPages");
+  const hasRead = formData.get("bookRead") ? true : false;
+
+  addBookToLibrary(title, author, genre, numOfPages, hasRead);
+  populateLibrary();
+});
 
 populateLibrary();
