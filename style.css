@@ -4,10 +4,15 @@ body {
   font-family: Roboto;
 }
 
+p,
+h3 {
+  margin: 0;
+}
+
 .container {
   display: grid;
   height: 100vh;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 300px;
   grid-template-rows: 0.5fr 3fr;
 }
 
@@ -54,11 +59,26 @@ body {
   margin: 0;
 }
 
+.submit-button {
+  cursor: pointer;
+  border-radius: 10px;
+  height: 36px;
+  width: 100px;
+  background-color: #ddd6fe;
+  font-weight: 700;
+  font-size: 16px;
+  color: #2e1065;
+}
+
 .header {
   display: grid;
   place-items: center;
   grid-template-columns: 1fr;
   margin-bottom: 12px;
+}
+
+.header > h1 {
+  color: #2e1065;
 }
 
 .search-bar-container {
@@ -77,6 +97,7 @@ body {
 }
 
 .search-bar-button {
+  display: grid;
   background-color: #7c3aed;
   border-radius: 12px;
   padding: 1px 4px;
@@ -90,13 +111,75 @@ body {
 
 .library-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+  grid-auto-rows: 200px;
   gap: 10px;
-  margin: 0 10px;
+  padding: 10px 10px;
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.book-card-container {
+  background-color: #ddd6fe;
+  border-radius: 18px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .book-card {
-  background-color: #ddd6fe;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+}
+
+.book-card-edge {
+  display: flex;
+  align-items: center;
+  margin: 0 12px;
+}
+
+.circle-border {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 4px solid #2e1065;
+}
+
+.circle-checked {
+  fill: #2e1065;
+}
+
+.book-card-info {
+  flex: 1;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  margin: 6px 0;
+  margin-right: 6px;
+  padding: 0 18px;
+  border: 4px solid #2e10652d;
   border-radius: 18px;
+}
+
+.title {
+  border-bottom: 4px solid #2e1065;
+  font-weight: 800;
+}
+
+.author,
+.pages,
+.genre {
+  font-weight: 500;
+}
+
+.delete-icon {
+  cursor: pointer;
+  height: 28px;
+  fill: #2e1065;
+  justify-self: right;
+  align-self: center;
 }
